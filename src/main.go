@@ -1,21 +1,24 @@
 package main
 
 import (
-    "github.com/gin-gonic/gin"
-    "github.com/gin-contrib/cors"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-    LoadEnv()
-    InitDB()
+	LoadEnv()
+	InitDB()
 
-    r := gin.Default()
+	r := gin.Default()
 
-    r.Use(cors.Default())
+	r.Use(cors.Default())
 
-    r.POST("/register", Register)
-    r.POST("/login", Login)
-    r.POST("/reset-password", ResetPassword)
+	// Public routes
+	r.POST("/register", Register)
+	r.POST("/login", Login)
 
-    r.Run(":8080")
+	// Protected routes
+	r.POST("/reset-password", JWTAuthMiddleware(), ResetPassword)
+
+	r.Run(":8080")
 }
