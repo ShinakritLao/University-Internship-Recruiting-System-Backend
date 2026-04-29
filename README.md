@@ -10,7 +10,9 @@ go get github.com/gin-contrib/cors
 
 
 go mod tidy
+cd src
 go run .
+
 
 ## CI/CD with GitHub Actions and Render
 
