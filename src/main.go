@@ -1,8 +1,8 @@
 package main
 
 import (
+	"net/http"
 	"time"
-
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -21,6 +21,9 @@ func main() {
 		AllowCredentials: false,
 		MaxAge:           12 * time.Hour,
 	}))
+
+	// Health check
+	r.GET("/health", healthCheck)
 
 	// Public routes
 	r.POST("/register", Register)
@@ -51,4 +54,16 @@ func main() {
 	}
 
 	r.Run(":8080")
+}
+
+func healthCheck(c *gin.Context) {
+	if err := DB.Ping(); err != nil {
+		c.JSON(http.StatusServiceUnavailable, gin.H{
+			"status": "unhealthy",
+			"error":  err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }
