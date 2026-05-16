@@ -49,6 +49,8 @@ func main() {
 		auth.POST("/internships/:id/apply", ApplyForInternship)
 		auth.GET("/applications/my", GetMyApplications)
 		auth.GET("/profile/my", GetMyProfile)
+		auth.DELETE("/applications/:id", DeleteMyApplication)
+		auth.PUT("/applications/:id/confirm", ConfirmApplication)
 
 		// Staff routes
 		auth.GET("/internships/pending", GetPendingInternships)
