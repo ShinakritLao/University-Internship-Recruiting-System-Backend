@@ -51,6 +51,8 @@ func main() {
 		auth.GET("/profile/my", GetMyProfile)
 		auth.DELETE("/applications/:id", DeleteMyApplication)
 		auth.PUT("/applications/:id/confirm", ConfirmApplication)
+		auth.GET("/notifications/my", GetMyNotifications)
+		auth.PUT("/notifications/:id/read", MarkNotificationRead)
 
 		// Staff routes
 		auth.GET("/internships/pending", GetPendingInternships)
