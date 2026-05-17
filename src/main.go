@@ -28,7 +28,6 @@ func main() {
 	// Public routes
 	r.POST("/register", Register)
 	r.POST("/login", Login)
-	r.GET("/internships/approved", GetApprovedInternships)
 
 	// Protected routes
 	auth := r.Group("/", JWTAuthMiddleware())
@@ -44,6 +43,16 @@ func main() {
 		auth.GET("/mou-requests/my", GetMyMOURequest)
 		auth.GET("/internships/:id/applications", GetApplicationsForInternship)
 		auth.PUT("/applications/:id/status", UpdateApplicationStatus)
+
+		// Student routes
+		auth.GET("/internships/approved", GetApprovedInternships)
+		auth.POST("/internships/:id/apply", ApplyForInternship)
+		auth.GET("/applications/my", GetMyApplications)
+		auth.GET("/profile/my", GetMyProfile)
+		auth.DELETE("/applications/:id", DeleteMyApplication)
+		auth.PUT("/applications/:id/confirm", ConfirmApplication)
+		auth.GET("/notifications/my", GetMyNotifications)
+		auth.PUT("/notifications/:id/read", MarkNotificationRead)
 
 		// Staff routes
 		auth.GET("/internships/pending", GetPendingInternships)
